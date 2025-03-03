@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sort By Clicking The Headers</title>
+    <meta name="google" content="notranslate" />
+    <link rel="shortcut icon" href="assets/favicon.webp" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th onclick="sortTable(0)">Videojuego</th>
+        <th onclick="sortTable(1)">Año de Lanzamiento</th>
+      </tr>
+      <tr>
+        <td>The Legend of Zelda: Breath of the Wild</td>
+        <td>2017</td>
+      </tr>
+      <tr>
+        <td>Super Mario Odyssey</td>
+        <td>2017</td>
+      </tr>
+      <tr>
+        <td>The Witcher 3: Wild Hunt</td>
+        <td>2015</td>
+      </tr>
+      <tr>
+        <td>Red Dead Redemption 2</td>
+        <td>2018</td>
+      </tr>
+      <tr>
+        <td>Grand Theft Auto V</td>
+        <td>2013</td>
+      </tr>
+      <tr>
+        <td>God of War</td>
+        <td>2018</td>
+      </tr>
+      <tr>
+        <td>Fortnite</td>
+        <td>2017</td>
+      </tr>
+      <tr>
+        <td>Minecraft</td>
+        <td>2011</td>
+      </tr>
+      <tr>
+        <td>Super Smash Bros. Ultimate</td>
+        <td>2018</td>
+      </tr>
+      <tr>
+        <td>Call of Duty: Modern Warfare</td>
+        <td>2019</td>
+      </tr>
+      <tr>
+        <td>Animal Crossing: New Horizons</td>
+        <td>2020</td>
+      </tr>
+      <tr>
+        <td>The Elder Scrolls V: Skyrim</td>
+        <td>2011</td>
+      </tr>
+      <tr>
+        <td>Assassin's Creed Odyssey</td>
+        <td>2018</td>
+      </tr>
+      <tr>
+        <td>Halo Infinite</td>
+        <td>2021</td>
+      </tr>
+      <tr>
+        <td>FIFA 21</td>
+        <td>2020</td>
+      </tr>
+    </table>
+
+    <script>
+      function sortTable(n) {
+        let $table = document.querySelector('table'),
+          $rows,
+          $switch = true,
+          $shoulSwitching,
+          i,
+          x,
+          y,
+          dir = 'asc',
+          switchCount = 0;
+
+        while ($switch) {
+          $switch = false;
+          $rows = $table.rows;
+
+          for (i = 1; i < $rows.length - 1; i++) {
+            $shoulSwitching = false;
+
+            x = $rows[i].querySelectorAll('td')[n];
+            y = $rows[i + 1].querySelectorAll('td')[n];
+
+            if (dir === 'asc') {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                $shoulSwitching = true;
+                break;
+              }
+            } else if (dir === 'desc') {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                $shoulSwitching = true;
+                break;
+              }
+            }
+          }
+
+          if ($shoulSwitching) {
+            $rows[i].parentElement.insertBefore($rows[i + 1], $rows[i]);
+            $switch = true;
+            switchCount++;
+          } else {
+            if (switchCount === 0 && dir === 'asc') {
+              dir = 'desc';
+              $switch = true;
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
